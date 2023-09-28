@@ -9,6 +9,15 @@ pipeline {
                     sh 'echo "Hello world, this is a test project"'
                 }
             }
+            post {
+                success {
+                    // Notify on build success
+                    emailext(
+                        subject: "Regarding Jenkins build",
+                        body: "#${BUILD_NUMBER} of ${JOB_NAME} has succeeded."
+                    )
+                }
+            }
         }
         
         stage('Manual Approval') {
@@ -30,29 +39,50 @@ pipeline {
             }
         }
 
-        stage('Deploy') {
+        stage('Deploy Success') {
             when {
                 expression {
-                    currentBuild.resultIsBetterOrEqualTo('SUCCESS')￼
-
+                    currentBuild.resultIsBetterOrEqualTo('SUCCESS')
                 }
             }
             steps {
                 script {
-                    // Deployment steps go here
-                    sh 'echo "Hello world, this is a test project"'
+                    // Deployment steps for success go here
+                    sh 'echo "Deployment for success: This is a test project"'
+                }
+            }
+            post {
+                success {
+                    // Notify on deployment success
+                    emailext(
+                        subject: "Regarding Jenkins build",
+                        body: "#${BUILD_NUMBER} of ${JOB_NAME} has deployed successfully."
+                    )
                 }
             }
         }
-    }
-    
-    post {
-        success {
-            // Notify on build success
-            emailext(
-                subject: "Regarding Jenkins build",
-                body: "#${BUILD_NUMBER} of ${JOB_NAME} has succeeded."
-            )
+
+        stage('Deploy Failure') {
+            when {
+                expression {
+                    currentBuild.resultIsBetterOrEqualTo('FAILURE')
+                }
+            }
+            steps {
+                script {
+                    // Deployment steps for failure go here
+                    sh 'echo "Deployment for failure: This is a test project"'
+                }
+            }
+            post {
+                failure {
+                    // Notify on deployment failure
+                    emailext(
+                        subject: "Regarding Jenkins build",
+                        body: "#${BUILD_NUMBER} of ${JOB_NAME} has failed to deploy."
+                    )
+                }
+            }
         }
     }
 }
