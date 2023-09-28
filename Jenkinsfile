@@ -34,14 +34,7 @@ pipeline {
             when {
                 expression {
                     currentBuild.resultIsBetterOrEqualTo('SUCCESS')￼
-address not configured yet <anoopkathait108@gmail.com>
-15:46 (1 hour ago)
-￼￼
-to abc
-￼
-Build #7 of gamil-project requires your approval to proceed.
 
-Click here to approve.
                 }
             }
             steps {
