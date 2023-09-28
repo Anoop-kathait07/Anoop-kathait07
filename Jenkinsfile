@@ -2,11 +2,11 @@ pipeline {
     agent any
 
     stages {
-        stage('Send notification on Gmail') {
+        stage('Send Notification on Gmail') {
             steps {
-                
+                // Checkout the code from GitHub
                 script {
-                    'echo "Hello world this is a test mail"'
+                    'echo "this is a test project"'
                 }
             }
         }
@@ -31,7 +31,7 @@ pipeline {
                     body: """<p>Build #${BUILD_NUMBER} of ${JOB_NAME} requires your approval to proceed.</p>
                              <p>Click <a href="${BUILD_URL}/input/ProceedApproval/build?delay=0sec">here</a> to approve.</p>""",
                     recipientProviders: [[$class: 'DevelopersRecipientProvider']],
-                    contentType: 'text/html'
+                    mimeType: 'text/html'  // Use mimeType instead of contentType
                 )
                 // Wait for user input (manual approval)
                 input 'ProceedApproval'
@@ -58,7 +58,7 @@ pipeline {
                 subject: 'Build Failed: Build #${BUILD_NUMBER} - ${JOB_NAME}',
                 body: """<p>Build #${BUILD_NUMBER} of ${JOB_NAME} has failed.</p>""",
                 recipientProviders: [[$class: 'DevelopersRecipientProvider']],
-                contentType: 'text/html'
+                mimeType: 'text/html'  // Use mimeType instead of contentType
             )
         }
     }
