@@ -57,6 +57,7 @@ pipeline {
                     emailext(
                         subject: "Regarding Jenkins build",
                         body: "#${BUILD_NUMBER} of ${JOB_NAME} has deployed successfully."
+                        to: "thakuranoop54321@gmail.com"  // Replace with the actual recipient's email address
                     )
                 }
             }
@@ -80,6 +81,7 @@ pipeline {
                     emailext(
                         subject: "Regarding Jenkins build",
                         body: "#${BUILD_NUMBER} of ${JOB_NAME} has failed to deploy."
+                        to: "thakuranoop54321@gmail.com"  // Replace with the actual recipient's email address
                     )
                 }
             }
