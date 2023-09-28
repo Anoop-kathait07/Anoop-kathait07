@@ -1,57 +1,57 @@
 pipeline {
     agent any
     
-        stages {
-            stage ('first stage build') {
-                steps {
-                    sh 'echo "Hello word this is a test project"'
+    stages {
+        stage('First Stage Build') {
+            steps {
+                script {
+                    // This is the build stage; you can put your build commands here
+                    sh 'echo "Hello world, this is a test project"'
                 }
             }
-            stage ('Manual Aproval') {
-                When{
-                    expersion {
-                        currentBuild.resultIsBatterorEqualTo('SUCCESS')
-                    }
+        }
+        
+        stage('Manual Approval') {
+            when {
+                expression {
+                    currentBuild.resultIsBetterOrEqualTo('SUCCESS')
                 }
-                steps
-                // Send an email notification request approval
-                emailext(
-                    subject: 'Approval Required: Build #${BUILD_NUMBER} - ${JOB_NAME}',
-                    Body: """ Hii Sir, Need your approval for this reqest """,
+            }
+            steps {
+                script {
+                    // Send an email notification requesting approval
+                    emailext(
+                        subject: "Approval Required: Build #${BUILD_NUMBER} - ${JOB_NAME}",
+                        body: "Hi Sir, I need your approval for this request."
                     )
-                // Wait for the approval
-                 input 'ProceedApproval'
+                    // Wait for the approval
+                    input "ProceedApproval"
+                }
             }
         }
 
-    Stage ('Deploy') {
-        when {
-            expersion {
-                currentBuild.resultIsBatterorEqualTo('SUCCESS')
+        stage('Deploy') {
+            when {
+                expression {
+                    currentBuild.resultIsBetterOrEqualTo('SUCCESS')
+                }
+            }
+            steps {
+                script {
+                    // Deployment steps go here
+                    sh 'echo "Hello world, this is a test project"'
+                }
             }
         }
-        steps
-        // Deployment is here
-        sh 'echo "Hello world this is a test project"'
     }
-
-#${BUILD_NUMBER} - ${JOB_NAME}
-Post {
-    SUCCESS
-    // Notify on build SUCCESS
-    emailext(
-                    subject: 'Approval Required: Build #${BUILD_NUMBER} - ${JOB_NAME}',
-                    Body: """ #${BUILD_NUMBER} of ${JOB_NAME} has failed""",
-                    )
+    
+    post {
+        success {
+            // Notify on build success
+            emailext(
+                subject: "Regarding Jenkins build",
+                body: "#${BUILD_NUMBER} of ${JOB_NAME} has succeeded."
+            )
+        }
+    }
 }
-}
-
-
-    
-        
-    
-        
-                    
-                
-    
-
