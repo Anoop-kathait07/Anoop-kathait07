@@ -6,7 +6,7 @@ pipeline {
             steps {
                 
                 script {
-                    'echo "Hello world this is a test mail"
+                    'echo "Hello world this is a test mail"'
                 }
             }
         }
