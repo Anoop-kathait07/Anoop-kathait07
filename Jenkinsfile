@@ -66,6 +66,66 @@ pipeline {
             when {
                 expression {
                     currentBuild.resultIsBetterOrEqualTo('FAILURE')
+        
+        stage('Manual Approval') {
+            when {
+                expression {
+                    currentBuild.resultIsBetterOrEqualTo('SUCCESS')
+                }
+            }
+            steps {
+                script {
+                    // Send an email notification requesting approval
+                    emailext(
+                        subject: "Approval Required: Build #${BUILD_NUMBER} - ${JOB_NAME}",
+                        body: "Hi Sir, I need your approval for this request."
+                    )
+                    // Wait for the approval
+                    input "ProceedApproval"
+                }
+            }
+        }
+
+        stage('Deploy') {
+            when {
+                expression {
+                    currentBuild.resultIsBetterOrEqualTo('SUCCESS'or'FAILUR)￼
+
+                }
+            }
+            steps {
+                script {
+                    // Deployment steps go here
+                    sh 'echo "Hello world this is a test project"'
+                }
+            }
+        }
+    }
+    
+    post {
+        success {
+            // Notify on build success
+            emailext(
+                subject: "Regarding Jenkins build",
+                body: "#${BUILD_NUMBER} of ${JOB_NAME} has succeeded."
+            )
+        }
+    }
+
+        post {
+        success {
+            // Notify on build FAILUR
+            emailext(
+                subject: "Regarding Jenkins build",
+                body: "#${BUILD_NUMBER} of ${JOB_NAME} has failed."
+                )
+        }
+    }
+                                                         }
+
+
+
+
                 }
             }
             steps {
