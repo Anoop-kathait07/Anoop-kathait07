@@ -17,7 +17,7 @@ pipeline {
                 // Send an email notification request approval
                 emailext(
                     subject: 'Approval Required: Build #${BUILD_NUMBER} - ${JOB_NAME}',
-                    Body: Hii Sir, Need your approval for this reqest
+                    Body: """ Hii Sir, Need your approval for this reqest """,
                     )
                 // Wait for the approval
                  input 'ProceedApproval'
@@ -35,13 +35,13 @@ pipeline {
         sh 'echo "Hello world this is a test project"'
     }
 
-
+#${BUILD_NUMBER} - ${JOB_NAME}
 Post {
     SUCCESS
     // Notify on build SUCCESS
     emailext(
                     subject: 'Approval Required: Build #${BUILD_NUMBER} - ${JOB_NAME}',
-                    Body: Hii Sir, Need your approval for this reqest
+                    Body: """ #${BUILD_NUMBER} of ${JOB_NAME} has failed""",
                     )
 }
 }
