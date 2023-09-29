@@ -9,15 +9,6 @@ pipeline {
                     sh 'echo "Hello world, this is a test project"'
                 }
             }
-            post {
-                success {
-                    // Notify on build success
-                    emailext(
-                        subject: "Regarding Jenkins build",
-                        body: "#${BUILD_NUMBER} of ${JOB_NAME} has succeeded."
-                    )
-                }
-            }
         }
         
         stage('Manual Approval') {
@@ -55,7 +46,7 @@ pipeline {
                 success {
                     // Notify on deployment success
                        emailext(
-                       to: "thakuranoop54321@gmail.com",  // Replace with your custom email address
+                       to: "anoopsinghj73@gmail.com",  // Replace with your custom email address
                        subject: "Custom Subject",
                        body: "Build has been been suceed."
             )
@@ -79,7 +70,7 @@ pipeline {
                 failure {
                     // Notify on deployment failure
                          emailext(
-                       to: "thakuranoop54321@gmail.com",  // Replace with your custom email address
+                       to: "anoopsinghj73@gmail.com",  // Replace with your custom email address
                        subject: "Custom Subject",
                        body: "Build has been been failed."
             )
