@@ -54,7 +54,11 @@ pipeline {
             post {
                 success {
                     // Notify on deployment success
-                    emailext body: 'A Test EMail', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: "Test'ss"
+                       emailext(
+                       to: "thakuranoop54321@gmail.com",  // Replace with your custom email address
+                       subject: "Custom Subject",
+                       body: "Build has been been suceed."
+            )
                 }
             }
         }
@@ -74,7 +78,11 @@ pipeline {
             post {
                 failure {
                     // Notify on deployment failure
-                    emailext body: 'A Test EMail', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: "Test'ss"
+                         emailext(
+                       to: "thakuranoop54321@gmail.com",  // Replace with your custom email address
+                       subject: "Custom Subject",
+                       body: "Build has been been failed."
+            )
                 }
             }
         }
