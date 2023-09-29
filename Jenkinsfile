@@ -54,11 +54,7 @@ pipeline {
             post {
                 success {
                     // Notify on deployment success
-                    emailext(
-                        subject: "Regarding Jenkins build",
-                        body: "#${BUILD_NUMBER} of ${JOB_NAME} has deployed successfully."
-                        recipient: "thakuranoop54321@gmail.com"  // Replace with the actual recipient's email address
-                    )
+                    emailext body: 'A Test EMail', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: "Test'ss"
                 }
             }
         }
@@ -78,11 +74,7 @@ pipeline {
             post {
                 failure {
                     // Notify on deployment failure
-                    emailext(
-                        subject: "Regarding Jenkins build",
-                        body: "#${BUILD_NUMBER} of ${JOB_NAME} has failed to deploy."
-                        recipient: "thakuranoop54321@gmail.com"  // Replace with the actual recipient's email address
-                    )
+                    emailext body: 'A Test EMail', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: "Test'ss"
                 }
             }
         }
