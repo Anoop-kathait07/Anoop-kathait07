@@ -46,7 +46,7 @@ pipeline {
                 success {
                     // Notify on deployment success
                        emailext(
-                       to: "anoopsinghj73@gmail.com",  // Replace with your custom email address
+                       to: "shavejkhan673@gmail.com",  // Replace with your custom email address
                        subject: "Custom Subject",
                        body: "Build has been been suceed."
             )
@@ -70,7 +70,7 @@ pipeline {
                 failure {
                     // Notify on deployment failure
                          emailext(
-                       to: "anoopsinghj73@gmail.com",  // Replace with your custom email address
+                       to: "shavejkhan673@gmail.com",  // Replace with your custom email address
                        subject: "Custom Subject",
                        body: "Build has been been failed."
             )
